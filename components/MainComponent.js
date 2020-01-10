@@ -18,6 +18,15 @@ import CampsiteInfo from "./CampsiteInfoComponent";
 import About from "./AboutComponent";
 import Contact from "./ContactComponent";
 import { Icon } from "react-native-elements";
+import {connect } from 'react-redux';
+import { fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../redux/ActionCreators';
+
+const mapDispatchToProps = {
+  fetchCampsites,
+  fetchComments,
+  fetchPartners,
+  fetchPromotions
+}
 
 const DirectoryNavigator = createStackNavigator(
   {
@@ -201,6 +210,14 @@ const MainNavigator = createDrawerNavigator(
 );
 
 class Main extends Component {
+
+  componentDidMount(){
+    this.props.fetchCampsites();
+    this.props.fetchComments();
+    this.props.fetchPartners();
+    this.props.fetchPromotions();
+  }
+
   render() {
     return (
       <View
@@ -244,4 +261,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Main;
+export default connect(null,mapDispatchToProps)(Main);
