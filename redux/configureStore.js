@@ -8,6 +8,7 @@ import { partners } from './partners';
 import { favorites } from './favorites';
 
 export const ConfigureStore = () => {
+    debugger;
     const store = createStore(
         combineReducers({
             campsites,
