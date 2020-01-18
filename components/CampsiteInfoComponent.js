@@ -239,8 +239,7 @@ class CampsiteInfo extends Component {
               onChangeText={text => this.setState({ text: text })}
               value={this.state.text}
             />
-            <View style={{ margin: 10 }}>
-              <View>
+              <View style={{ margin: 10 }}>
                 <Button
                   onPress={() => {
                     this.handleComment(campsiteId);
@@ -248,8 +247,10 @@ class CampsiteInfo extends Component {
                   }}
                   color="#5637DD"
                   title="Submit"
+                  style={{marginTop:10}}
                 />
               </View>
+              <View style={{ margin: 10 }}>
               <Button
                 onPress={() => {
                   this.toggleModal();
@@ -257,9 +258,10 @@ class CampsiteInfo extends Component {
                 }}
                 color="#808080"
                 title="Cancel"
+                style={{marginTop:10}}
               />
+              </View>
             </View>
-          </View>
         </Modal>
       </ScrollView>
     );
