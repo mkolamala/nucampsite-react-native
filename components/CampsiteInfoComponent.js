@@ -8,7 +8,8 @@ import {
   Button,
   StyleSheet,
   Alert,
-  PanResponder
+  PanResponder,
+  Share
 } from "react-native";
 import { Card, Icon, Rating, Input } from "react-native-elements";
 import { connect } from "react-redux";
@@ -75,6 +76,19 @@ function RenderCampsite(props) {
     }
   });
 
+  const shareCampsite = (title, message, url) => {
+    Share.share(
+      {
+        title: title,
+        message: `${title}: ${message} ${url}`,
+        url: url
+      },
+      {
+        dialogTitle: "Share " + title
+      }
+    );
+  };
+
   if (campsite) {
     return (
       <Animatable.View
@@ -110,6 +124,21 @@ function RenderCampsite(props) {
               raised
               reverse
               onPress={() => props.onShowModal()}
+            />
+            <Icon
+              name={"share"}
+              type="font-awesome"
+              color="#5637DD"
+              style={styles.cardItem}
+              raised
+              reversed
+              onPress={() =>
+                shareCampsite(
+                  campsite.name,
+                  campsite.description,
+                  baseUrl + campsite.image
+                )
+              }
             />
           </View>
         </Card>
@@ -239,18 +268,18 @@ class CampsiteInfo extends Component {
               onChangeText={text => this.setState({ text: text })}
               value={this.state.text}
             />
-              <View style={{ margin: 10 }}>
-                <Button
-                  onPress={() => {
-                    this.handleComment(campsiteId);
-                    this.resetForm();
-                  }}
-                  color="#5637DD"
-                  title="Submit"
-                  style={{marginTop:10}}
-                />
-              </View>
-              <View style={{ margin: 10 }}>
+            <View style={{ margin: 10 }}>
+              <Button
+                onPress={() => {
+                  this.handleComment(campsiteId);
+                  this.resetForm();
+                }}
+                color="#5637DD"
+                title="Submit"
+                style={{ marginTop: 10 }}
+              />
+            </View>
+            <View style={{ margin: 10 }}>
               <Button
                 onPress={() => {
                   this.toggleModal();
@@ -258,10 +287,10 @@ class CampsiteInfo extends Component {
                 }}
                 color="#808080"
                 title="Cancel"
-                style={{marginTop:10}}
+                style={{ marginTop: 10 }}
               />
-              </View>
             </View>
+          </View>
         </Modal>
       </ScrollView>
     );
